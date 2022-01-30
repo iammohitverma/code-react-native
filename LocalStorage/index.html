@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/style.css" rel="stylesheet">
+    <link href="../assets/prism/prism.css" rel="stylesheet">
+    <link href="../assets/line-number/line-number.css" rel="stylesheet">
+    <script src="../assets/prism/prism.js"></script>
+    <script src="../assets/line-number/line-number.js"></script>
+    <link rel="icon" href="https://reactjs.org/favicon.ico">
+    <title>React Code Snippets </title>
+</head>
+
+<body>
+    <div class="container-fluid wordpressFunctionAP">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 right">
+                    <ul>
+                        <li id="cmnFunc">
+                            <div>
+                                <span class="text">
+                                    App.js Code
+                                </span>
+                                <span class="function">
+                                    <pre class="line-numbers">
+<code class="language-javascript">import React from 'react';
+    import { View, Text, StyleSheet } from 'react-native';
+    import { NavigationContainer } from '@react-navigation/native';
+    import { createNativeStackNavigator } from '@react-navigation/native-stack';
+    import Login from './src/Screens/Login';
+    import Home from './src/Screens/Home';
+    
+    const Stack = createNativeStackNavigator();
+    
+    const styles = StyleSheet.create({
+      wrapper: {
+        flex:1,
+        backgroundColor: "red"
+      }
+    });
+    
+    const App = () => {
+      return (
+        &lt;NavigationContainer>
+          &lt;Stack.Navigator
+               screenOptions={{
+                headerShown: false
+              }}
+            >
+            &lt;Stack.Screen name="Login" component={Login} />
+            &lt;Stack.Screen name="Home" component={Home} />
+          &lt;/Stack.Navigator>
+        &lt;/NavigationContainer>
+      );
+    }
+    
+    export default App;
+</code>
+                                </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li id="cmnFunc">
+                            <div>
+                                <span class="text">
+                                    Login.js Code
+                                </span>
+                                <span class="function">
+                                    <pre class="line-numbers">
+<code class="language-javascript">import React, {useState, useEffect} from 'react';
+import {View, Text, TextInput, Button, TouchableOpacity, Alert} from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './Stylesheets/Stylesheet';
+
+const Login = ({navigation}) => {
+
+    const [nameVal, setNameVal] = useState("");
+    const [ageVal, setAgeVal] = useState("");
+    
+    
+    // Set data in localStorage
+    const submitFun = async () => {
+        if((nameVal.length == 0) || (ageVal.length == 0)) {
+            Alert.alert("Warning!","Please fill Data before Submit", [
+                { text: "OK"}
+            ], { cancelable: true });
+        }else{
+            try {
+                let userData = {
+                    name: nameVal,
+                    age: ageVal 
+                }
+                await AsyncStorage.setItem('userData', JSON.stringify(userData));
+                navigation.navigate("Home");
+            } catch (e) {
+                // saving error
+                console.log(e);
+            }
+        }
+    }
+
+
+
+    // Check if user already Login
+    // Get data from Local storage
+    const getData = async () => {
+        try {
+        const value = await AsyncStorage.getItem('userData')
+            if(value !== null) {
+                // value previously stored
+                navigation.navigate("Home");
+            }else{
+                setNameVal("");
+                setAgeVal("");
+            }
+        } catch(e) {
+            // error reading value
+            console.log(e);
+        }
+    }
+    
+    // Get data on onLoad using useEffect Hook
+    useEffect(() => {
+        getData();
+    }, []);
+    
+
+
+    return(
+        &lt;View style={[styles.FullScreen, styles.bgDark, styles.CenteredScreen]}>
+            &lt;View style={styles.Container}>
+                &lt;View>
+                    &lt;Text style={styles.HeadingStyle}>Login &lt;/Text>
+                &lt;/View>
+                &lt;View>
+                    &lt;TextInput style={styles.inputStyle} placeholder='Enter your Username'  placeholderTextColor="#636e72" value={nameVal} onChangeText={(value)=>setNameVal(value)}/>
+                &lt;/View>
+
+                &lt;View>
+                    &lt;TextInput style={styles.inputStyle} placeholder='Enter your Age'  placeholderTextColor="#636e72" value={ageVal} onChangeText={(value)=>setAgeVal(value)}/>
+                &lt;/View>
+
+                &lt;TouchableOpacity
+                    style={styles.button}
+                    onPress={submitFun}
+                >
+                    &lt;Text style={styles.buttonTxt}>Submit&lt;/Text>
+                &lt;/TouchableOpacity>
+            &lt;/View>
+        &lt;/View>
+    )
+}
+
+export default Login;
+</code>
+                                              </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li id="cmnFunc">
+                            <div>
+                                <span class="text">
+                                    Home.js Code
+                                </span>
+                                <span class="function">
+                                    <pre class="line-numbers">
+<code class="language-javascript">import React, {useState, useEffect} from 'react';
+import {View, Text, TextInput, Button, TouchableOpacity, Alert} from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './Stylesheets/Stylesheet';
+
+const Home = ({navigation}) => {
+
+    const [getData, setGetData] = useState("");
+
+    // Get data from Local storage
+    const getDataFun = async () => {
+        try {
+        const value = await AsyncStorage.getItem('userData')
+        const allValues = JSON.parse(value);
+        if(value !== null) {
+            // value previously stored
+            setGetData(allValues);
+        }
+        } catch(e) {
+            // error reading value
+            console.log(e);
+        }
+    }
+    
+    // Get data on onLoad using useEffect Hook
+    useEffect(() => {
+        getDataFun();
+    }, []);
+    
+
+    // Data update function
+    const updateData = async () => {
+        if((getData.name.length == 0) || (getData.age.length == 0)) {
+            Alert.alert("Warning!","Please fill Data before Update", [
+                { text: "OK"}
+            ], { cancelable: true });
+        }else{
+            try {
+                let userData = {
+                    name: getData.name,
+                    age: getData.age 
+                }
+                await AsyncStorage.setItem('userData', JSON.stringify(userData));
+            } catch (e) {
+                // saving error
+                console.log(e);
+            }
+        }
+    }
+
+
+    // logoutFun function (Delete data from storage)
+    const logoutFun = async () => {
+        try {
+            await AsyncStorage.clear();
+            navigation.navigate('Login');
+        } catch (e) {
+            // saving error
+            console.log(e);
+        }
+    }
+
+    return(
+        &lt;View style={[styles.FullScreen, styles.bgDark, styles.CenteredScreen]}>
+            &lt;View style={styles.Container}>
+                &lt;View>
+                    &lt;Text style={styles.HeadingStyle}>Welcome {getData.name}&lt;/Text>
+                &lt;/View>
+                &lt;View>
+                    &lt;Text style={styles.HeadingStyle}>Your Age is {getData.age}&lt;/Text>
+                &lt;/View>
+                &lt;View>
+                    &lt;TextInput style={styles.inputStyle} placeholder='Update Username'  placeholderTextColor="#636e72" value={getData.name} onChangeText={(value)=>setGetData({...getData, name:value})}/>
+                &lt;/View>
+                &lt;View>
+                    &lt;TextInput style={styles.inputStyle} placeholder='Update Age'  placeholderTextColor="#636e72" value={getData.age} onChangeText={(value)=>setGetData({...getData, age:value})}/>
+                &lt;/View>
+
+                &lt;TouchableOpacity
+                    style={styles.button}
+                    onPress={updateData}
+                >
+                    &lt;Text style={styles.buttonTxt}>Update Data&lt;/Text>
+                &lt;/TouchableOpacity>
+
+                &lt;TouchableOpacity
+                    style={styles.button}
+                    onPress={logoutFun}
+                >
+                    &lt;Text style={styles.buttonTxt}>Logout&lt;/Text>
+                &lt;/TouchableOpacity>
+            &lt;/View>
+        &lt;/View>
+    )
+}
+
+export default Home;
+</code>
+                                              </pre>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -120,6 +120,17 @@ const countries = ["Egypt", "Canada", "Australia", "Ireland"]
         return item
     }}
 />
+
+
+//if not showing icons
+In 'android/app/build.gradle' (not in android/build.gradle),
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+Then,
+react-native link react-native-vector-icons 
+react-native run-android
+react-native start
 </code>
                                 </pre>
                                 </span>
@@ -158,6 +169,36 @@ const ImageFile = () => {
 }
 
 export default ImageFile;
+</code>
+                                </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li id="cmnFunc">
+                            <div>
+                                <span class="text">
+                                    Reanimated keyframes in React Native
+                                </span>
+
+                                <span class="function">
+                                    <pre class="line-numbers">
+<code class="language-javascript">&lt;a href="./ReAnimated.html">./ReAnimated.html&lt;/a>
+For file folder sctructure
+&lt;a href="./react-native-reanimated-keyframes-main">./react-native-reanimated-keyframes-main&lt;/a>
+</code>
+                                </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li id="cmnFunc">
+                            <div>
+                                <span class="text">
+                                    Cache clear in React Native
+                                </span>
+
+                                <span class="function">
+                                    <pre class="line-numbers">
+<code class="language-javascript">npm start -- --reset-cache
 </code>
                                 </pre>
                                 </span>
@@ -2046,6 +2087,166 @@ replace key and -alias with desired name
 paste > app > keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
 paste > app > keytool -genkeypair -v -storetype PKCS12 -keystore my_app_name.keystore -alias my_app_name -keyalg RSA -keysize 2048 -validity 10000
 after execute enter apk details
+</code>
+                                </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li id="cmnFunc">
+                            <div>
+                                <span class="text">
+                                    NCard in React Native
+                                </span>
+
+                                <span class="function">
+                                    <pre class="line-numbers">
+<code class="language-javascript">import React from 'react';
+import {View, Text, Image, StyleSheet, TouchableOpacity, Linking} from 'react-native';
+
+const styles = StyleSheet.create({
+    fullScreen: {
+        flex: 1,
+    },
+    centeredScreen: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    bgLight:{
+        backgroundColor: "#fdcb6e"
+    },
+    container: {
+        paddingHorizontal: 15,
+    },
+    card:{
+        backgroundColor: "#fff",
+        borderRadius: 10,
+        overflow: 'hidden'        
+    },
+    cardImage: {
+        width: "100%",
+        height: undefined,
+        aspectRatio: 1
+    },
+    mb_10:{
+        marginBottom: 10
+    },
+    p_15: {
+        padding: 15
+    },
+    cardContent:{
+        fontSize: 16,
+        lineHeight: 24
+    },
+    cardBtn:{
+        padding: 15,
+        backgroundColor: "red",
+        alignItems: 'center',
+        cursor: "pointer"
+    },
+    cardBtnText:{
+        fontSize: 18,
+        fontWeight: "600",
+        color: "#fff"
+    }
+});
+
+
+
+const NCard = () => {
+    return (
+    &lt;View style={[styles.centeredScreen, styles.fullScreen, styles.bgLight]}>
+        &lt;View style={styles.container}>
+            &lt;View style={styles.card}>
+                &lt;View>
+                    &lt;Image
+                        style={styles.cardImage}
+                        source={{
+                        uri: 'https://images.unsplash.com/photo-1643639779508-4c60952c058c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+                        }}
+                    />
+                &lt;/View>
+                &lt;View style={styles.p_15}>
+                    &lt;Text style={styles.cardContent}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae natus nam odit voluptatem, nisi aut officia aliquam eos pariatur ducimus eveniet fugit numquam est recusandae sunt autem accusamus dolor! Veritatis.&lt;/Text>
+                &lt;/View>
+                &lt;View>
+                    &lt;TouchableOpacity
+                        style={styles.cardBtn}
+                        onPress={()=>Linking.openURL("https://www.google.com")}
+                    >
+                        &lt;Text style={styles.cardBtnText}>Press Here&lt;/Text>
+                    &lt;/TouchableOpacity>
+                &lt;/View>
+            &lt;/View>
+        &lt;/View>
+    &lt;/View>
+    );
+};
+
+
+export default NCard;
+    
+</code>
+                                </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li id="cmnFunc">
+                            <div>
+                                <span class="text">
+                                    Hide Tab navigation from specific screen in React Native
+                                </span>
+
+                                <span class="function">
+                                    <pre class="line-numbers">
+<code class="language-javascript"> import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import SplashScreen from "./src/Screens/SplashScreen";
+import AllNotes from "./src/Screens/AllNotes";
+import CreateNote from './src/Screens/CreateNote';
+
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+
+
+const App = () => {
+    return(
+        &lt;NavigationContainer>
+            &lt;Stack.Navigator
+                    screenOptions={{
+                    headerShown: false
+                }}
+                initialRouteName="SplashScreen">
+
+
+                &lt;Stack.Screen name="SplashScreen" component={SplashScreen} />
+                &lt;Stack.Screen name="getAllTabScreen">{()=>(
+                    &lt;Tab.Navigator
+                        screenOptions={{
+                        headerShown: false
+                    }}
+                    initialRouteName="AllNotes"
+                >
+                    &lt;Tab.Screen name="AllNotes" component={AllNotes}/>
+                    &lt;Tab.Screen name="CreateNote" component={CreateNote}/>
+                    &lt;/Tab.Navigator>
+                )}
+                &lt;/Stack.Screen>
+
+
+            &lt;/Stack.Navigator>        
+        &lt;/NavigationContainer>      
+    )
+}
+
+export default App;
+
+
+
+    
 </code>
                                 </pre>
                                 </span>

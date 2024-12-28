@@ -1,0 +1,61 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "JSON-Server",
+      "author": "Amit"
+    },
+    {
+      "id": "2",
+      "title": "Node.js",
+      "author": "Mohit"
+    }
+  ],
+  "comments": [
+    {
+      "id": "d0d9",
+      "body": "Great post!"
+    },
+    {
+      "id": "b4a8",
+      "body": "Great post!"
+    },
+    {
+      "id": "bc41",
+      "body": "Great post!"
+    },
+    {
+      "id": "4574",
+      "body": "Great post!"
+    },
+    {
+      "id": "5c2a",
+      "body": "Great post!"
+    }
+  ],
+  "profile": [
+    {
+      "name": "Amit Kumar"
+    }
+  ],
+  "users": [
+    {
+      "name": "mohit",
+      "email": "Verma",
+      "age": "28",
+      "id": "7075"
+    },
+    {
+      "name": "Mohit",
+      "email": "Verma",
+      "age": "28",
+      "id": "4"
+    },
+    {
+      "name": "Rohan",
+      "email": "s",
+      "age": "s",
+      "id": "c080"
+    }
+  ]
+}

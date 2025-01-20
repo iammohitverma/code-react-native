@@ -1,0 +1,80 @@
+import React, { useState } from "react";
+import { SafeAreaView, Text, View, Image, ScrollView } from "react-native";
+import ThemeStyle from "../css/ThemeStyle";
+import Statusbar from "../Statusbar";
+// Profile menu item icons
+const addressIco = require("../../assets/images/address_ico.png");
+const workIcon = require("../../assets/images/workIcon.png");
+const locationIcon = require("../../assets/images/locationIcon.png");
+const add_icon = require("../../assets/images/add_icon.png");
+const editIco = require("../../assets/images/edit_ico.png");
+
+const MyAddressScreen = ({ navigation }) => {
+  return (
+    <>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+        <Statusbar />
+        <ScrollView>
+          <View style={[ThemeStyle.container, ThemeStyle.bgWhite]}>
+            <View style={[ThemeStyle.ProfileContainer, ThemeStyle.m0]}>
+              <View style={[ThemeStyle.ProfileMenuListing]}>
+                <View
+                  style={ThemeStyle.ProfileMenuItem}
+                  // onPress={ () => goToInside('abc') }  // Pass Screen name
+                >
+                  <Image
+                    style={[ThemeStyle.ProfileMenuIcon]}
+                    source={addressIco}
+                  />
+
+                  <Text style={ThemeStyle.ProfileMenuText}>Home</Text>
+
+                  <Image
+                    style={[ThemeStyle.ProfileMenuArrow]}
+                    source={editIco}
+                  />
+                </View>
+
+                <View
+                  style={ThemeStyle.ProfileMenuItem}
+                  // onPress={ () => goToInside('xyz') }  // Pass Screen name
+                >
+                  <Image
+                    style={[ThemeStyle.ProfileMenuIcon]}
+                    source={workIcon}
+                  />
+
+                  <Text style={ThemeStyle.ProfileMenuText}>Work</Text>
+
+                  <Image
+                    style={[ThemeStyle.ProfileMenuArrow]}
+                    source={editIco}
+                  />
+                </View>
+
+                <View
+                  style={ThemeStyle.ProfileMenuItem}
+                  // onPress={ () => goToInside('zxc') }  // Pass Screen name
+                >
+                  <Image
+                    style={[ThemeStyle.ProfileMenuIcon]}
+                    source={locationIcon}
+                  />
+
+                  <Text style={ThemeStyle.ProfileMenuText}>Other</Text>
+
+                  <Image
+                    style={[ThemeStyle.ProfileMenuArrow]}
+                    source={editIco}
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
+};
+
+export default MyAddressScreen;

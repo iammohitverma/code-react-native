@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axios Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <button id="LoginBtn">Login</button>
+
+    <script>
+      const LoginBtn = document.getElementById("LoginBtn");
+
+      // const url = "https:/shop.tmdemo.in/api/login";
+      const url = "https://shop.tmdemo.in/api/featured/product/fetch ";
+      // const url = "https://shop.tmdemo.in/api/wishlist/fetch/";
+      // const url = "https://shop.tmdemo.in/api/wishlist/fetch/15";
+      // const url = "https://shop.tmdemo.in/api/products";
+      // const url = `https://shop.tmdemo.in/api/wishlist/add/15`;
+      // const url = `https://shop.tmdemo.in/api/product/fetch/12`;
+      // const url = `https://shop.tmdemo.in/api/wishlist/remove/54`;
+
+      const fetchData = () => {
+        // Create the form data
+        // const data = new FormData();
+        // data.append("product_id", 60);
+
+        // Send the POST request using axios
+        axios
+          .get(url, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization:
+                "Bearer 280|U7kgDSeMOjp0tsLBijqkCNS9CXOqhcec6qno0snu883fbdd9",
+            },
+            withCredentials: false,
+          })
+          // axios
+          //   .post(url, data, {
+          //     headers: {
+          //       "Content-Type": "multipart/form-data",
+          //       Authorization:
+          //         "Bearer 202|e1sG5zZJUL6YWzFliHCcdiiUomglorXVVYBHFiFn3868fed3",
+          //     },
+          //     withCredentials: false,
+          //   })
+          // axios
+          //   .delete(url, {
+          //     headers: {
+          //       Accept: "application/json",
+          //       Authorization:
+          //         "Bearer 280|U7kgDSeMOjp0tsLBijqkCNS9CXOqhcec6qno0snu883fbdd9",
+          //     },
+          //   })
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error("Error:", error);
+            document.getElementById("response").innerHTML =
+              "Error: " + error.message;
+          });
+      };
+
+      // Add event listener to the button
+      LoginBtn.addEventListener("click", fetchData);
+    </script>
+  </body>
+</html>
